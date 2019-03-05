@@ -1,0 +1,29 @@
+version: "3"
+services:
+  web:
+      build: ./scripts/app
+      volumes:
+          - .:/app
+      env_file:
+          - .env
+      ports:
+          - "${APP_PORT}:${APP_PORT}"
+      command: php -S 0.0.0.0:${APP_PORT} -t public public/index.php
+      depends_on:
+          - db
+ #MySQL Service
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    restart: unless-stopped
+    tty: true
+    env_file:
+      - .env
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+      
