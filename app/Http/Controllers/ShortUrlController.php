@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\ShortUrl;
 use Illuminate\Http\Request;
 
 class ShortUrlController extends Controller
@@ -13,7 +14,11 @@ class ShortUrlController extends Controller
      */
     public function index()
     {
-        //
+        $short = ShortUrl::orderBy('counter', 'DESC')->take(100)->get();
+
+        return response()->json([
+            'urls' => $short,
+        ]);
     }
 
     /**
