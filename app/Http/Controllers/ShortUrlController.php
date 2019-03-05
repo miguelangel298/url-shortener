@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShortUrlRequest;
 use App\ShortUrl;
 use Illuminate\Http\Request;
 
@@ -27,9 +28,11 @@ class ShortUrlController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShortUrlRequest $request)
     {
-        //
+        $shortUrl = new ShortUrl();
+        $shortUrl->url = $request->get('url');
+        return response()->json($shortUrl, 201);
     }
 
     /**
