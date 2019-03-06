@@ -24,7 +24,7 @@ class ShortUrlRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required|regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            'url' => 'required|regex:/^(https:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
         ];
     }
 
