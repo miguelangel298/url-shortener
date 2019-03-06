@@ -53,6 +53,10 @@ class ShortUrlController extends Controller
             return redirect()->away($urlTwo->url);
         }
 
+        return response()->json([
+            'short_url' => 'not found'
+        ]);
+
     }
 
 }
