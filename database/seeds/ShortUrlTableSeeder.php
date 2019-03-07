@@ -10,6 +10,6 @@ class ShortUrlTableSeeder extends Seeder
     public function run()
     {
         ShortUrl::truncate();
-        factory(ShortUrl::class, 100)->create();
+        factory(ShortUrl::class, 110)->create();
     }
 }

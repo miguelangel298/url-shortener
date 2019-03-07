@@ -10,5 +10,6 @@ $factory->define(ShortUrl::class, function (Faker $faker) {
     return [
         'url' => $faker->url,
         'code' => $urlShort->generate(),
+        'counter' => $faker->numberBetween(3,200),
     ];
 });
