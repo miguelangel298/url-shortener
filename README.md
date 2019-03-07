@@ -40,6 +40,18 @@ php artisan migrate
 php artisan db:seed
 
 ```
+- Possible problem
+
+If your app presents a problem with the database, it's probably because you did not find the ip of the database
+
+Solve with the following steps:
+
+
+* In the console execute this command `docker inspect db`.
+* In the returned data look for `IPAddress`.
+* Go to `.env` and in `DB_HOST` enter the `IPAddress` value.
+* Stop the docker container `Ctrl+c` and vueleva to initialize it `docker-composer up`
+
 # Tests
 
 ```
