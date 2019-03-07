@@ -20,15 +20,22 @@ Class to generate a random code with a specified string of characters. This clas
 # Pre-reqs
 To build and run this app locally you will need a few things:
 - Install PHP(=>7.0)
+- Composer
 - Docker (docker-composer)
 
 # Getting started
 
 -  Run the project
 ```
+composer install
+
+cp .env.example .env
+
+php artisan key:generate
+
 docker-compose up --build
 
-composer install
+php artisan migrate
 
 php artisan db:seed
 
