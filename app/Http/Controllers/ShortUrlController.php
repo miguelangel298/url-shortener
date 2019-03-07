@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ShortUrlRequest;
 use App\ShortUrl;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class ShortUrlController extends Controller
 {
@@ -27,9 +29,13 @@ class ShortUrlController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ShortUrlRequest $request)
     {
-        //
+        $shortUrl = new ShortUrl();
+        $shortUrl->url = $request->get('url');
+        $shortUrl->generateShortUrl();
+        $shortUrl->save();
+        return response()->json($shortUrl, 201);
     }
 
     /**
@@ -38,31 +44,19 @@ class ShortUrlController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($code)
     {
-        //
+
+        $urlTwo = ShortUrl::whereCode($code)->first();
+        if ($urlTwo) {
+            $urlTwo->increment('counter');
+            return redirect()->away($urlTwo->url);
+        }
+
+        return response()->json([
+            'short_url' => 'not found'
+        ]);
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
 }
