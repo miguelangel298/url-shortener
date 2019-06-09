@@ -1,14 +1,15 @@
 version: "3"
 services:
   web:
-      build: ./scripts/app
+      build: .
+      command: php -S 0.0.0.0:${APP_PORT} -t public public/index.php
+      restart: always
       volumes:
           - .:/app
       env_file:
           - .env
       ports:
           - "${APP_PORT}:${APP_PORT}"
-      command: php -S 0.0.0.0:${APP_PORT} -t public public/index.php
       depends_on:
           - db
  #MySQL Service
@@ -26,4 +27,3 @@ services:
       MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
-      
