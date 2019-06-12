@@ -25,35 +25,48 @@ To build and run this app locally you will need a few things:
 
 # Getting started
 
--  Run the project
+copy the ENV in the project:
 ```
-composer install
+ cp .env.example .env
+```
 
-cp .env.example .env
+install dependencies of project:
+```
+ composer install
+```
 
+generate key for application:
+```
 php artisan key:generate
-
-docker-compose up --build
-
-php artisan migrate
-
-php artisan db:seed
-
 ```
-- Possible problem
 
-If your app presents a problem with the database, it's probably because you did not find the ip of the database
+run docker and connect to container:
+```
+ docker-compose up --build
+```
 
-Solve with the following steps:
+run migration for creating the tables:
+```
+docker-compose exec web php artisan migrate
+```
+run seeder:
+```
+docker-compose exec web php artisan db:seed
+```
+# call localhost in your browser:
 
+See the list of routes registered in the API:
+- GET `http://localhost:{PORT}/`
 
-* In the console execute this command `docker inspect db`.
-* In the returned data look for `IPAddress`.
-* Go to `.env` and in `DB_HOST` enter the `IPAddress` value.
-* Stop the docker container `Ctrl+c` and vueleva to initialize it `docker-composer up`
+Shortener to URL:
+- POST `http://localhost:{PORT}/api/urls`
+
+Use a URL shortener:
+- GET `http://localhost:{PORT}/{CODE}`
+
 
 # Tests
 
 ```
-./vendor/bin/phpunit 
+docker-compose exec web ./vendor/bin/phpunit 
 ```
